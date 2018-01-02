@@ -77,7 +77,7 @@ def generate_wordcloud(virgool_article, output_name=None):
     virgool_mask = np.array(Image.open(path.join(d, "virgool.png")))
 
     wc = PersianWordCloud(font_path=path.join(d, "IRANSans.ttf"), mask=virgool_mask, max_words=100,
-                background_color="white", width=600, height=600, prefer_horizontal=1, stopwords=stopwords)
+                background_color="white", width=1694, height=1694, prefer_horizontal=1, stopwords=stopwords)
     wc.generate(text)
 
     if output_name is None:
