@@ -102,7 +102,10 @@ def persist(file_path, var):
     f.close()
 
 def get_vars(file_path):
-    f = open(file_path, 'rb')
-    obj = pickle.load(f)
-    f.close()
-    return obj
+    try:
+        f = open(file_path, 'rb')
+        obj = pickle.load(f)
+        f.close()
+        return obj
+    except:
+        return ""
