@@ -9,6 +9,7 @@ import numpy as np
 from PIL import Image
 from hazm import *
 import re
+import pickle
 
 d = path.dirname(__file__)
 
@@ -94,3 +95,14 @@ def get_last_article():
     last_article_h2 = last_article_a.find('h2', {'class': ['post--title']})
     # print(last_article_h2.text)
     return (last_article_a['href'], last_article_h2.text)
+
+def persist(file_path, var):
+    f = open(file_path, 'wb')
+    pickle.dump(var, f)
+    f.close()
+
+def get_vars(file_path):
+    f = open(file_path, 'rb')
+    obj = pickle.load(f)
+    f.close()
+    return obj
