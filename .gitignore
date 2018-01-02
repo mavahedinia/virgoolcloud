@@ -99,3 +99,10 @@ ENV/
 
 # mypy
 .mypy_cache/
+
+# mac shit
+.DS_Store
+
+# config N test files
+config.py
+test.py
