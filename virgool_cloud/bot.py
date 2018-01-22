@@ -17,8 +17,8 @@ while True:
         output_name = "{}.png".format(uuid4())
         generate_wordcloud(new_article_link[0], path.join(TMP_DIR, output_name))
 
-        # shorturl = shortener.short(new_article_link[0])
-        shorturl = new_article_link[0]
+        shorturl = shortener.short(new_article_link[0])
+        # shorturl = new_article_link[0]
         caption = "{}\n{}".format(new_article_link[1], shorturl)
 
         bot.send_photo(chat_id=channel_id, photo=open(path.join(TMP_DIR, output_name), 'rb'), caption=caption)
