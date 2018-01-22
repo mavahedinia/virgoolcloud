@@ -106,3 +106,5 @@ ENV/
 # config N test files
 config.py
 test.py
+*.pkl
+avatar.png
