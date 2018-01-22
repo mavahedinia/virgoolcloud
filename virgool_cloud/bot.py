@@ -13,15 +13,16 @@ last_article_link = get_vars(vars_file)
 while True:
     new_article_link = get_last_article()
     if new_article_link != last_article_link:
+        TMP_DIR = create_temp()
         output_name = "{}.png".format(uuid4())
-        generate_wordcloud(new_article_link[0], output_name)
+        generate_wordcloud(new_article_link[0], path.join(TMP_DIR, output_name))
 
-        shorturl = shortener.short(new_article_link[0])
-        # shorturl = new_article_link[0]
+        # shorturl = shortener.short(new_article_link[0])
+        shorturl = new_article_link[0]
         caption = "{}\n{}".format(new_article_link[1], shorturl)
 
-        bot.send_photo(chat_id=channel_id, photo=open(path.join(d, output_name), 'rb'), caption=caption)
-        remove(output_name)
+        bot.send_photo(chat_id=channel_id, photo=open(path.join(TMP_DIR, output_name), 'rb'), caption=caption)
+        remove_dir(TMP_DIR)
 
         last_article_link = new_article_link
         persist(vars_file, last_article_link)

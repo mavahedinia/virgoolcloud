@@ -4,14 +4,22 @@ from bs4.element import Comment
 import requests
 from os import path
 from persian_wordcloud.wordcloud import STOPWORDS, PersianWordCloud
-import datetime
 import numpy as np
 from PIL import Image
 from hazm import *
 import re
 import pickle
+import tempfile
+import shutil
 
 d = path.dirname(__file__)
+
+def create_temp():
+    dirpath = tempfile.mkdtemp()
+    return dirpath
+
+def remove_dir(dir):
+    shutil.rmtree(dir)
 
 def tag_visible(element):
     if element.parent.name in ['style', 'script', 'head', 'title', 'meta', '[document]']:
@@ -48,7 +56,7 @@ def clean_text(text):
     text = remove_emoji(text)
     return text
 
-def generate_wordcloud(virgool_article, output_name=None):
+def generate_wordcloud(virgool_article, output_path=None):
     html = requests.get(virgool_article).text
     body = get_article_body(html)
     text = text_from_html(body)
@@ -80,11 +88,11 @@ def generate_wordcloud(virgool_article, output_name=None):
                 background_color="white", width=1694, height=1694, prefer_horizontal=1, stopwords=stopwords)
     wc.generate(text)
 
-    if output_name is None:
-        output_name = "{}.png".format(list(body)[1].text)
+    if output_path is None:
+        output_path = "{}.png".format(list(body)[1].text)
 
     # store to file
-    wc.to_file(path.join(d, output_name))
+    wc.to_file(output_path)
 
 def get_last_article():
     html = requests.get('https://virgool.io/').text
