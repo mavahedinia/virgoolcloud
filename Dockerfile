@@ -4,6 +4,6 @@ COPY virgool_cloud /virgool_cloud
 
 WORKDIR /virgool_cloud
 
-RUN pip install -r requirements/requirements-dev.txt
+RUN pip install -r requirements.txt
 
 CMD ["python", "./bot.py"]
