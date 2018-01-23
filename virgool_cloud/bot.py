@@ -11,7 +11,11 @@ shortener = Shortener('Bitly', bitly_token=bitly_access_token)
 last_article_link = get_vars(vars_file)
 
 while True:
-    new_article_link = get_last_article()
+    try:
+        new_article_link = get_last_article()
+    except:
+        time.sleep(waiting_timeout)
+        continue
     if new_article_link != last_article_link:
         TMP_DIR = create_temp()
         output_name = "{}.png".format(uuid4())
@@ -22,7 +26,7 @@ while True:
         except:
             shorturl = new_article_link[0]
             print("cannot shorten link :(")
-            
+
         caption = "{}\n{}".format(new_article_link[1], shorturl)
 
         bot.send_photo(chat_id=channel_id, photo=open(path.join(TMP_DIR, output_name), 'rb'), caption=caption)
