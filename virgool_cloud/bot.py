@@ -29,7 +29,13 @@ while True:
 
         caption = "{}\n{}".format(new_article_link[1], shorturl)
 
-        bot.send_photo(chat_id=channel_id, photo=open(path.join(TMP_DIR, output_name), 'rb'), caption=caption)
+        try:
+            bot.send_photo(chat_id=channel_id, photo=open(path.join(TMP_DIR, output_name), 'rb'), caption=caption)
+        except:
+            print("failed =))")
+            time.sleep(waiting_timeout)
+            continue
+            
         remove_dir(TMP_DIR)
 
         last_article_link = new_article_link
