@@ -80,7 +80,6 @@ def generate_wordcloud(virgool_article, output_path=None):
                     word += w
                 all_words.append(lemmatizer.lemmatize(word, pos=key))
 
-    all_words.reverse()
     text = ' '.join(all_words)
     virgool_mask = np.array(Image.open(path.join(d, "virgool.png")))
 
